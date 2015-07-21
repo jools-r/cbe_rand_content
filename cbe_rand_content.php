@@ -19,7 +19,7 @@ $plugin['name'] = 'cbe_rand_content';
 
 $plugin['version'] = '0.2';
 $plugin['author'] = 'Claire Brione';
-$plugin['author_uri'] = 'http://www.clairebrione.com';
+$plugin['author_uri'] = 'https://github.com/ClaireBrione/cbe_rand_content';
 $plugin['description'] = 'Generate mass (fake) articles and comments';
 
 // Plugin load order:
@@ -80,7 +80,7 @@ if (!defined('txpinterface'))
  *
  * @author  Claire Brione
  * @link    http://www.clairebrione.com/
- * @version light
+ * @version 0.2
  */
 
 /* =========================== Constants ============================ */
