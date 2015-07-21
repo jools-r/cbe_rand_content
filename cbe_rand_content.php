@@ -17,7 +17,7 @@ $plugin['name'] = 'cbe_rand_content';
 // 1 = Plugin help is in raw HTML.  Not recommended.
 # $plugin['allow_html_help'] = 1;
 
-$plugin['version'] = '0.1';
+$plugin['version'] = '0.2';
 $plugin['author'] = 'Claire Brione';
 $plugin['author_uri'] = 'http://www.clairebrione.com';
 $plugin['description'] = 'Generate mass (fake) articles and comments';
@@ -75,6 +75,8 @@ if (!defined('txpinterface'))
  * cbe_rand_content - Generate mass (fake) articles and comments
  *
  * 0.1 - 25 May 2013 - Initial release
+ * 0.2 - 21 Jul 2015 - http://forum.textpattern.com/viewtopic.php?pid=293584#p293584
+ *                     preparing _cbe_rndc_init() and _cbe_rndc_reinit() if, one day...
  *
  * @author  Claire Brione
  * @link    http://www.clairebrione.com/
@@ -82,10 +84,10 @@ if (!defined('txpinterface'))
  */
 
 /* =========================== Constants ============================ */
-define( 'CBE_RNDC_NAME'   , 'cbe_rand_content' ) ;
-define( 'CBE_RNDC_SPFX'   , 'cbe_rndc_'  ) ;
-define( 'CBE_RNDC_LPFX'   , CBE_RNDC_NAME.'_' ) ;
-define( 'CBE_RNDC_VERSION', 'light' ) ;
+define( 'CBE_RNDC_VERSION', '0.2' ) ;               // Current version
+define( 'CBE_RNDC_EVENT'  , 'cbe_rand_content' ) ;  // This event's name
+define( 'CBE_RNDC_SPFX'   , 'cbe_rndc_'  ) ;        // Internal short prefix
+define( 'CBE_RNDC_LPFX'   , CBE_RNDC_EVENT.'_' ) ;  // Internal long prefix
 
 if( @txpinterface == 'admin' ) {
 
@@ -113,10 +115,10 @@ if( @txpinterface == 'admin' ) {
 
   global $textarray ;
   $textarray += call_user_func( '_'.CBE_RNDC_SPFX.'texts' ) ;
-  add_privs( CBE_RNDC_NAME, '1, 2' ) ;
-  register_tab( 'extensions', CBE_RNDC_NAME, gTxt( CBE_RNDC_LPFX.'tab_label' ) ) ;
-  register_callback( CBE_RNDC_LPFX.'lifecycle', 'plugin_lifecycle.'.CBE_RNDC_NAME ) ;
-  register_callback( CBE_RNDC_LPFX.'router' , CBE_RNDC_NAME ) ;
+  add_privs( CBE_RNDC_EVENT, '1, 2' ) ;
+  register_tab( 'extensions', CBE_RNDC_EVENT, gTxt( CBE_RNDC_LPFX.'tab_label' ) ) ;
+  register_callback( CBE_RNDC_LPFX.'lifecycle', 'plugin_lifecycle.'.CBE_RNDC_EVENT ) ;
+  register_callback( CBE_RNDC_LPFX.'router' , CBE_RNDC_EVENT ) ;
 
 /* ============================ Internal ============================ */
 define( 'DIGITS'    , 0 ) ;
@@ -218,6 +220,28 @@ function _cbe_rndc_text( $sent_min = 5, $sent_max = 0, $word_min = 7, $word_max 
 
 /* =================== Plugin's lifecycle related =================== */
 /**
+ * _cbe_rndc_init - Admin-side: plugin table creation, prefs insertion
+ *
+ * @access private
+ */
+  function _cbe_rndc_init()
+  {
+      // Nothing at the moment
+      return ;
+  }
+
+/**
+ * _cbe_rndc_reinit - Admin-side: plugin table update, prefs update
+ *
+ * @access private
+ */
+  function _cbe_rndc_reinit()
+  {
+      // Nothing at the moment
+      return ;
+  }
+
+/**
  * cbe_rndc_lifecycle_installed - Admin-side: fires when plugin is installed
  *
  * @return  void
@@ -231,6 +255,9 @@ function _cbe_rndc_text( $sent_min = 5, $sent_max = 0, $word_min = 7, $word_max 
 
       } elseif( $registered_version === 'none' ) {
           _cbe_rndc_init() ;
+
+      } else {
+          _cbe_rndc_reinit() ;
       }
 
       set_pref( CBE_RNDC_LPFX.'version', CBE_RNDC_VERSION, CBE_RNDC_EVENT, PREF_HIDDEN, '' ) ;
@@ -245,15 +272,7 @@ function _cbe_rndc_text( $sent_min = 5, $sent_max = 0, $word_min = 7, $word_max 
  */
   function cbe_rndc_lifecycle_enabled()
   {
-      if( get_pref( CBE_RNDC_LPFX.'version', 'none' ) === 'none' ) {
-          set_pref( CBE_RNDC_LPFX.'version', CBE_RNDC_VERSION, CBE_RNDC_EVENT , PREF_HIDDEN, '' ) ;
-      }
-
-/*
-      if(  )
-          _cbe_rndc_init() ;
-*/
-      return ;
+      return( cbe_rndc_lifecycle_installed() ) ;
   }
 
 /**
@@ -661,6 +680,7 @@ if (0) {
 
 <ul>
   <li>25 May 13 - 0.1 - Initial release</li>
+  <li>21 Jul 15 - 0.2 - Fixed <a href="http://forum.textpattern.com/viewtopic.php?pid=293584#p293584">fatal error</a> and preparing <code>_cbe_rndc_init()</code> and <code>_cbe_rndc_reinit()</code> if, one day...</li>
 </ul>
 
 </div>
