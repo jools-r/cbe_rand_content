@@ -327,7 +327,7 @@ function _cbe_rndc_text( $sent_min = 5, $sent_max = 0, $word_min = 7, $word_max 
                           , 'div' )
                    , '', "verify('".gTxt('are_you_sure')."')" ) ;
 
-      $html = join( '<hr />', $out ) ;
+      $html = join( '<hr>', $out ) ;
       return( $next_step ) ;
   }
 
@@ -655,7 +655,7 @@ if (0) {
 <ul>
   <li>generation will fail if comments are not used</li>
   <li>only for non-expired live articles</li>
-  <li>sometimes, a non-expired live article won't receive any comment</li>
+  <li>sometimes, a non-expired live article won’t receive any comment</li>
   <li>between 3 and 10 comments are generated for each article</li>
   <li>per comment: 2 to 5 paragraphs, 6 to 10 words each paragraph,  2 to 8 characters each word</li>
   <li>name: 2 words, 4 to 7 characters and 4 to 9 characters</li>
@@ -668,7 +668,7 @@ if (0) {
 <h2 id="install-supp">Installation and support</h2>
 
 <ul>
-  <li>Copy/paste in the Admin > Plugins tab to install or uninstall, activate or desactivate.</li>
+  <li>Copy/paste in the Admin > Plugins tab to install or uninstall, activate or deactivate.</li>
 </ul>
 
 <h2 id="usage">Usage</h2>
