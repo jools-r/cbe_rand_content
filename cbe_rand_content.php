@@ -379,7 +379,7 @@ function _cbe_rndc_text( $sent_min = 5, $sent_max = 0, $word_min = 7, $word_max 
           $status    = $stati[ rand( 0, $posstatus ) ] ;
           $published = date( "Y-m-d H:i:s", $seeddate ) ;
           $lastmod   = date( "Y-m-d H:i:s" ) ;
-          $expires   = ( in_array( $in, array( 0, 4, 8 ) ) ) ? '' : date( "Y-m-d H:i:s", strtotime( "+{$in} months", $seeddate ) ) ;
+          $expires   = ( in_array( $in, array( 0, 4, 8 ) ) ) ? null : date( "Y-m-d H:i:s", strtotime( "+{$in} months", $seeddate ) ) ;
           $feeddate  = date( "Y-m-d", $seeddate ) ;
           $author    = $authors[ rand( 0, $posauthor ) ] ;
           $section   = $sections[ rand( 0, $possection ) ] ;
@@ -428,7 +428,7 @@ function _cbe_rndc_text( $sent_min = 5, $sent_max = 0, $word_min = 7, $word_max 
                                        Excerpt_html    = '$excerpt_html',
                                        Status          = '$status',
                                        Posted          = '$published',
-                                       Expires         = '$expires',
+                                       Expires         = ". ($expires ? "'$expires'" : "NULL") . ",
                                        AuthorID        = '$author',
                                        LastMod         = '$lastmod',
                                        LastModID       = '$author',
@@ -481,7 +481,7 @@ function _cbe_rndc_text( $sent_min = 5, $sent_max = 0, $word_min = 7, $word_max 
       $globerrlevel = '' ;
       $aIds = safe_rows( "ID, Title, unix_timestamp(Posted) as uPosted", "textpattern"
                        , "`Posted`<=now() AND
-                          (`Expires`>now() OR `Expires`=".NULLDATETIME.") AND
+                          (`Expires`>now() OR `Expires`= NULL) AND
                           `Status`=".STATUS_LIVE." AND
                           `Annotate`='1'
                          ORDER BY ID" ) ;
