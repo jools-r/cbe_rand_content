@@ -342,12 +342,11 @@ function _cbe_rndc_text( $sent_min = 5, $sent_max = 0, $word_min = 7, $word_max 
   {
       global $event, $comments_on_default, $comments_default_invite ;
       $next_step = NULL ;
-      include_once txpath.'/lib/classTextile.php';
       $out = array() ;
       $globerrlevel = '' ;
       $message      = gTxt( CBE_RNDC_LPFX.'populate_end' ) ;
       if( ($use_textile = get_pref( 'use_textile' )) == USE_TEXTILE ) {
-          include_once txpath.'/lib/classTextile.php';
+          $textile = new \Textpattern\Textile\Parser() ;
       }
 
       $authors     = safe_column_num( 'name', 'txp_users', "`privs`<6" ) ;
@@ -401,10 +400,10 @@ function _cbe_rndc_text( $sent_min = 5, $sent_max = 0, $word_min = 7, $word_max 
 
           switch( $use_textile ) {
           case USE_TEXTILE :
-              $textile = new Textile( get_pref( 'doctype' ) ) ;
-              $title        = $textile -> TextileThis( $title, '', 1 ) ;
-              $body_html    = $textile -> TextileThis( $body ) ;
-              $excerpt_html = $textile -> TextileThis( $excerpt ) ;
+              $textile = new \Textpattern\Textile\Parser() ;
+          //  $title        = $textile -> parse( $title, '', 1 ) ;
+              $body_html    = $textile -> parse( $body ) ;
+              $excerpt_html = $textile -> parse( $excerpt ) ;
               break ;
 
           case LEAVE_TEXT_UNTOUCHED :
