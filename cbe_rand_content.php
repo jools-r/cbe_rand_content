@@ -54,17 +54,28 @@ $plugin['flags'] = '2';
 // #@language ISO-LANGUAGE-CODE
 // abc_string_name => Localized String
 
-/** Uncomment me, if you need a textpack
 $plugin['textpack'] = <<< EOT
+#@owner cbe_rand_content
 #@admin
-#@language en-gb
-abc_sample_string => Sample String
-abc_one_more => One more
-#@language de-de
-abc_sample_string => Beispieltext
-abc_one_more => Noch einer
+#@language en
+cbe_rand_content_tab_label => Random content
+cbe_rand_content_pop_com => Generate comments
+cbe_rand_content_pop_art => Generate articles
+cbe_rand_content_go_back => Back
+cbe_rand_content_no_comm_allowed => Comments are not allowed
+cbe_rand_content_populate => Populate !
+cbe_rand_content_populate_end => Populating finished
+cbe_rand_content_with_errors => with errors
+#@language fr
+cbe_rand_content_tab_label => Contenu aléatoire
+cbe_rand_content_pop_com => Génération de commentaires
+cbe_rand_content_pop_art => Génération d’articles
+cbe_rand_content_go_back => Retour
+cbe_rand_content_no_comm_allowed => Les commentaires ne sont pas autorisés
+cbe_rand_content_populate => Générer !
+cbe_rand_content_populate_end => Génération terminée
+cbe_rand_content_with_errors => avec des erreurs
 EOT;
-**/
 // End of textpack
 
 if (!defined('txpinterface'))
@@ -90,32 +101,8 @@ define( 'CBE_RNDC_EVENT'  , 'cbe_rand_content' ) ;  // This event's name
 define( 'CBE_RNDC_SPFX'   , 'cbe_rndc_'  ) ;        // Internal short prefix
 define( 'CBE_RNDC_LPFX'   , CBE_RNDC_EVENT.'_' ) ;  // Internal long prefix
 
-if( @txpinterface == 'admin' ) {
+if( txpinterface === 'admin' ) {
 
-/**
- * _cbe_rndc_texts - Admin-side: language strings definitions
- *
- * @return  array
- */
-  function _cbe_rndc_texts()
-  {
-
-/* ============== Possible language customisation here ============== */
-      return( array( CBE_RNDC_LPFX.'tab_label'       => 'Random content'            // 'Contenu aléatoire'
-                   , CBE_RNDC_LPFX.'pop_com'         => 'Comments generation'       // 'Génération de commentaires'
-                   , CBE_RNDC_LPFX.'pop_art'         => 'Articles generation'       // 'Génération d'articles'
-                   , CBE_RNDC_LPFX.'go_back'         => 'Back'                      // 'Retour'
-                   , CBE_RNDC_LPFX.'no_comm_allowed' => 'Comments are not allowed'  // 'Les commentaires ne sont pas autorisés'
-                   , CBE_RNDC_LPFX.'populate'        => 'Populate !'                // 'Générer !'
-                   , CBE_RNDC_LPFX.'populate_end'    => 'Populating finished'       // 'Génération terminée'
-                   , CBE_RNDC_LPFX.'with_errors'     => 'with errors'               // 'avec des erreurs'
-            )      ) ;
-/* =========================== Stop editing =========================== */
-
-  }
-
-  global $textarray ;
-  $textarray += call_user_func( '_'.CBE_RNDC_SPFX.'texts' ) ;
   add_privs( CBE_RNDC_EVENT, '1, 2' ) ;
   register_tab( 'extensions', CBE_RNDC_EVENT, gTxt( CBE_RNDC_LPFX.'tab_label' ) ) ;
   register_callback( CBE_RNDC_LPFX.'lifecycle', 'plugin_lifecycle.'.CBE_RNDC_EVENT ) ;
