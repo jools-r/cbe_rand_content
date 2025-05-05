@@ -493,10 +493,14 @@ function _cbe_rndc_text( $sent_min = 5, $sent_max = 0, $word_min = 7, $word_max 
       } else {
           $message = gTxt( CBE_RNDC_LPFX.'populate_end' ) ;
           if( ($lifespan = $comments_disabled_after * 86400) > 0 ) {
-              array_walk( $aIds
-                        , create_function( '&$v, $k, $p', '$v[ "ID" ] = (time()-$v["uPosted"] < $p) ? $v["ID"] : false ;' )
-                        , $lifespan ) ;
-              $aIds = array_filter( $aIds, create_function( '$v', 'return( $v[ "ID" ] ) ;' ) ) ;
+                function commentIsActive(&$v, $k, $p) {
+                    $v[ "ID" ] = (time()-$v["uPosted"] < $p) ? $v["ID"] : false ;
+                }
+                function commentFilterActive($v) {
+                    return($v[ "ID" ]) ;
+                }
+                array_walk($aIds, 'commentIsActive', $lifespan) ;
+                $aIds = array_filter($aIds, 'commentFilterActive') ;
           }
 
           foreach( $aIds as $article ) {
