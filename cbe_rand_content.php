@@ -17,7 +17,7 @@ $plugin['name'] = 'cbe_rand_content';
 // 1 = Plugin help is in raw HTML.  Not recommended.
 # $plugin['allow_html_help'] = 1;
 
-$plugin['version'] = '0.2';
+$plugin['version'] = '0.3';
 $plugin['author'] = 'Claire Brione';
 $plugin['author_uri'] = 'https://github.com/ClaireBrione/cbe_rand_content';
 $plugin['description'] = 'Generate mass (fake) articles and comments';
@@ -77,14 +77,15 @@ if (!defined('txpinterface'))
  * 0.1 - 25 May 2013 - Initial release
  * 0.2 - 21 Jul 2015 - http://forum.textpattern.com/viewtopic.php?pid=293584#p293584
  *                     preparing _cbe_rndc_init() and _cbe_rndc_reinit() if, one day...
+ * 0.3 – 05 May 2025 - Compatibility updates for Textpattern v4.9 and PHP 8 (jools-r)
  *
  * @author  Claire Brione
  * @link    http://www.clairebrione.com/
- * @version 0.2
+ * @version 0.3
  */
 
 /* =========================== Constants ============================ */
-define( 'CBE_RNDC_VERSION', '0.2' ) ;               // Current version
+define( 'CBE_RNDC_VERSION', '0.3' ) ;               // Current version
 define( 'CBE_RNDC_EVENT'  , 'cbe_rand_content' ) ;  // This event's name
 define( 'CBE_RNDC_SPFX'   , 'cbe_rndc_'  ) ;        // Internal short prefix
 define( 'CBE_RNDC_LPFX'   , CBE_RNDC_EVENT.'_' ) ;  // Internal long prefix
@@ -663,7 +664,7 @@ if (0) {
 
 <h2 id="requirements">Plugin requirements</h2>
 
-<p>Developed and tested with Textpattern 4.5.4.</p>
+<p>Version 0.3 tested with Textpattern 4.9 and PHP8.</p>
 
 <h2 id="install-supp">Installation and support</h2>
 
@@ -683,6 +684,7 @@ if (0) {
 <ul>
   <li>25 May 13 - 0.1 - Initial release</li>
   <li>21 Jul 15 - 0.2 - Fixed <a href="http://forum.textpattern.com/viewtopic.php?pid=293584#p293584">fatal error</a> and preparing <code>_cbe_rndc_init()</code> and <code>_cbe_rndc_reinit()</code> if, one day...</li>
+  <li>05 May 25 - 0.3 - Compatibility updates for Textpattern v4.9 and PHP 8 (jools-r)</li>
 </ul>
 
 </div>
