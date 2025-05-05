@@ -584,97 +584,73 @@ function _cbe_rndc_text( $sent_min = 5, $sent_max = 0, $word_min = 7, $word_max 
 
       return ;
   }
-} // @txpinterface == 'admin'
-
-elseif( defined( 'txpinterface' ) ) {
-
-  return ;
-
-} // @txpinterface == 'public|css'
-
-else {
-
-  return ;
-
-} // txpinterface undef
+}
 # --- END PLUGIN CODE ---
 if (0) {
 ?>
 <!--
 # --- BEGIN PLUGIN HELP ---
-<div id="cbe-plugin-help">
+h1. cbe_rand_content
 
-<h1>cbe_rand_content</h1>
+h2. Features
 
-<p>A minimalist, but functional admin-side plugin to populate your content tables.</p>
+A minimalist, but functional admin-side plugin to populate your content tables. If you need content to test your front-end, this plugin will generate random articles and comments for you.
 
-<h2>Table of contents</h2>
+Only one problem, though: they are written in Martian, with sometimes a very little bit of lorem ipsum. But even on Mars, sentences begin with an uppercase and end with a period, names begin with an uppercase.
 
-<ul>
-  <li><a href="#features">Features</a></li>
-  <li><a href="#requirements">Plugin requirements</a></li>
-  <li><a href="#install-supp">Installation and support</a></li>
-  <li><a href="#usage">Usage</a></li>
-  <li><a href="#changelog">Changelog</a></li>
-</ul>
+Chain articles and their comments generation (already existing articles will be left untouched).
 
-<h2 id="features">Features</h2>
+Rules for articles and comments are customizable in the functions @_cbe_rndc_pop_art@ and @_cbe_rndc_pop_com@:
 
-<p>If you need content to test your front-end, this plugin will generate random articles and comments for you.</p>
-<p>One trouble, though: they are written in Martian, with sometimes a very little bit of lorem ipsum. But even on Mars, sentences begin with an uppercase and end with a period, names begin with an uppercase.</p>
-<p>Chain articles and their comments generation (already existing articles will be left untouched).</p>
-<p>Rules for articles and comments are customizable in the functions <code>_cbe_rndc_pop_art</code> and <code>_cbe_rndc_pop_com</code>:</p>
-<p>Rules for articles:</p>
+Rules for articles:
 
-<ul>
-  <li>between 10 and 15 articles are generated at a time</li>
-  <li>the probability for an article to be live is 8 over 11 (nearly 72%)</li>
-  <li>publish date is somewhere between 200 days ago and 60 days ahead</li>
-  <li>sometimes, expiration date is a few months after publish date</li>
-  <li>sometimes, an article has no category2</li>
-  <li>title: 3 to 5 words, 3 to 6 characters each word</li>
-  <li>excerpt: 1 paragraph, 6 to 10 words,  2 to 8 characters each word</li>
-  <li>body: 2 to 5 paragraphs, 6 to 8 sentences each paragraph,  5 to 10 words each paragraph, 2 to 8 characters each word</li>
-  <li>keywords and custom fields are <b>not</b> populated</li>
-</ul>
+* between 10 and 15 articles are generated at a time
+* the probability for an article to be live is 8 over 11 (nearly 72%)
+* publish date is somewhere between 200 days ago and 60 days ahead
+* sometimes, expiration date is a few months after publish date
+* sometimes, an article has no category2
+* title: 3 to 5 words, 3 to 6 characters each word
+* excerpt: 1 paragraph, 6 to 10 words, 2 to 8 characters each word
+* body: 2 to 5 paragraphs, 6 to 8 sentences each paragraph, 5 to 10 words each paragraph, 2 to 8 characters each word
+* keywords and custom fields are *not* populated
 
-<p>Rules for comments:</p>
+Rules for comments:
 
-<ul>
-  <li>generation will fail if comments are not used</li>
-  <li>only for non-expired live articles</li>
-  <li>sometimes, a non-expired live article won’t receive any comment</li>
-  <li>between 3 and 10 comments are generated for each article</li>
-  <li>per comment: 2 to 5 paragraphs, 6 to 10 words each paragraph,  2 to 8 characters each word</li>
-  <li>name: 2 words, 4 to 7 characters and 4 to 9 characters</li>
-</ul>
+* generation will fail if comments are not used
+* only for non-expired live articles
+* sometimes, a non-expired live article won't receive any comment
+* between 3 and 10 comments are generated for each article
+* per comment: 2 to 5 paragraphs, 6 to 10 words each paragraph, 2 to 8 characters each word
+* name: 2 words, 4 to 7 characters and 4 to 9 characters
 
-<h2 id="requirements">Plugin requirements</h2>
 
-<p>Version 0.3 tested with Textpattern 4.9 and PHP8.</p>
+h2. Installation / requirements
 
-<h2 id="install-supp">Installation and support</h2>
+Copy/paste the txt-installer in the Admin > Plugins tab to install, then activate.
 
-<ul>
-  <li>Copy/paste in the Admin > Plugins tab to install or uninstall, activate or deactivate.</li>
-</ul>
+Although there is no risk of damage, it is strongly suggested to export your @textpattern@ and @txp_discuss@ tables first.
 
-<h2 id="usage">Usage</h2>
+Version 0.3 tested with Textpattern 4.9 and PHP8.
 
-<p>Although there is no risk of damage, it is strongly suggested to export your <code>textpattern</code> and <code>txp_discuss</code> tables first.</p>
-<p>You will find the item "Random content" in the Extensions tab. Then, choose articles or comments generation.</p>
-<p>A list if the new IDs will be displayed when the process is complete.</p>
-<p>You can run it as many times as you wish.</p>
 
-<h2 id="changelog">Changelog</h2>
+h2. Usage
 
-<ul>
-  <li>25 May 13 - 0.1 - Initial release</li>
-  <li>21 Jul 15 - 0.2 - Fixed <a href="http://forum.textpattern.com/viewtopic.php?pid=293584#p293584">fatal error</a> and preparing <code>_cbe_rndc_init()</code> and <code>_cbe_rndc_reinit()</code> if, one day...</li>
-  <li>05 May 25 - 0.3 - Compatibility updates for Textpattern v4.9 and PHP 8 (jools-r)</li>
-</ul>
+Switch to the _Extensions › Random Content_ tab.
 
-</div>
+You can then choose to generate articles and/or generate comments.
+
+A list if the new article IDs will be displayed when the process is complete.
+
+To generate more content, just run it as many times as you wish.
+
+Note: To generate comments, you must set *Accept comments: yes* on the _Admin › Preferences › Site_ panel. Then in the new _Admin › Preferences › Comments_ panel, switch on *Comments on by default*. It is best to set this before you generate articles, as this determines whether the generated articles can have comments.
+
+
+h2. Changelog
+
+* 25 May 2013 - 0.1 - Initial release
+* 21 July 2015 - 0.2 - Fixed "fatal error":http://forum.textpattern.com/viewtopic.php?pid=293584#p293584 and preparing @_cbe_rndc_init()@ and @_cbe_rndc_reinit()@ if, one day...
+* 05 May 2025 - 0.3 - Compatibility updates for Textpattern v4.9 and PHP 8 (jools-r)
 # --- END PLUGIN HELP ---
 -->
 <?php
