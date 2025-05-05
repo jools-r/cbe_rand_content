@@ -374,7 +374,7 @@ function _cbe_rndc_text( $sent_min = 5, $sent_max = 0, $word_min = 7, $word_max 
 
       for( $i = 0 ; $i < $rndnb ; $i++ ) {
 
-          $seeddate  = rand( time()-(300*24*60*60), time()+(60*24*60*60) ) ;
+          $seeddate  = rand( time()-(200*24*60*60), time()+(60*24*60*60) ) ;
           $in        = rand( 0, 9 ) ;
           $status    = $stati[ rand( 0, $posstatus ) ] ;
           $published = date( "Y-m-d H:i:s", $seeddate ) ;
@@ -529,7 +529,6 @@ function _cbe_rndc_text( $sent_min = 5, $sent_max = 0, $word_min = 7, $word_max 
                                                `web`='"      . doSlash( 'http://'._cbe_rndc( false, ALPHAMINUS, 4, 7 ).'.'
                                                                       . _cbe_rndc( false, ALPHAMINUS, 3 ) )
                                                              . "',
-                                               `ip`='"       . doSlash( _cbe_rndc_ip() ) . "',
                                                `message`='"  . doSlash( $comm ) . "',
                                                `posted`='"   . doSlash( date( "Y-m-d H:i:s", rand( $article["uPosted"], time() ) ) )
                                                              . "'"
@@ -642,7 +641,7 @@ if (0) {
 <ul>
   <li>between 10 and 15 articles are generated at a time</li>
   <li>the probability for an article to be live is 8 over 11 (nearly 72%)</li>
-  <li>publish date is somewhere between 300 days ago and 60 days ahead</li>
+  <li>publish date is somewhere between 200 days ago and 60 days ahead</li>
   <li>sometimes, expiration date is a few months after publish date</li>
   <li>sometimes, an article has no category2</li>
   <li>title: 3 to 5 words, 3 to 6 characters each word</li>
